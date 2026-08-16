@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react";
 import { Plus, Edit2, Trash2, Search, Filter } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
-import { MENU_CATEGORIES } from "../../menu/data.ts";
+import { MENU_CATEGORIES } from "../../../menu/data.ts";
+import type { Category, Dish } from "../../../menu/data.ts";
 import DishForm from "../../_components/dish-form.tsx";
 
 type DishStatus = "published" | "draft" | "hidden" | "out_of_stock" | "archived";
@@ -31,8 +32,8 @@ const STATUS_META: Record<DishStatus, { label: string; color: string }> = {
 // Build dishes list from real data.ts
 const buildDishes = (): AdminDish[] => {
   const dishes: AdminDish[] = [];
-  MENU_CATEGORIES.forEach((cat) => {
-    cat.dishes.forEach((d, i) => {
+  MENU_CATEGORIES.forEach((cat: Category) => {
+    cat.dishes.forEach((d: Dish, i: number) => {
       dishes.push({
         id: `${cat.id}-${i}`,
         name: d.name,
@@ -51,7 +52,7 @@ const buildDishes = (): AdminDish[] => {
   return dishes;
 };
 
-const categoryOptions = MENU_CATEGORIES.map((c) => c.label);
+const categoryOptions = MENU_CATEGORIES.map((c: Category) => c.label);
 
 export default function DishesPage() {
   const [dishes, setDishes] = useState<AdminDish[]>(buildDishes);
@@ -104,13 +105,12 @@ export default function DishesPage() {
 
   const handleBulkPriceApply = () => {
     if (!bulkPrice.trim()) return;
-    setDishes(dishes.map((d) => selected.has(d.id) ? { ...d, price: `${bulkPrice}\u00a0000 сўм` } : d));
+    setDishes(dishes.map((d) => selected.has(d.id) ? { ...d, price: `${bulkPrice}\u00a0000 \u0441\u045e\u043c` } : d));
     setSelected(new Set());
     setBulkPrice("");
     setShowBulkPrice(false);
   };
 
-  // Counts by status for header
   const publishedCount = dishes.filter((d) => d.status === "published").length;
 
   return (
@@ -119,7 +119,7 @@ export default function DishesPage() {
         <div>
           <h1 className="text-2xl font-serif font-bold">Dishes</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            {dishes.length} total · {publishedCount} published
+            {dishes.length} total \u00b7 {publishedCount} published
           </p>
         </div>
         <button
@@ -189,7 +189,7 @@ export default function DishesPage() {
             )}
             {(["published", "hidden", "draft"] as DishStatus[]).map((s) => (
               <button key={s} onClick={() => handleBulkSetStatus(s)} className="px-3 py-1.5 text-xs font-medium bg-card border border-border rounded-lg hover:bg-muted">
-                → {STATUS_META[s].label}
+                \u2192 {STATUS_META[s].label}
               </button>
             ))}
             <button onClick={handleBulkDelete} className="px-3 py-1.5 text-xs font-medium bg-destructive/10 text-destructive border border-destructive/20 rounded-lg hover:bg-destructive/20">

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Plus, Edit2, Trash2, GripVertical, ChevronDown, ChevronRight, Check, X } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
-import { MENU_CATEGORIES } from "../../menu/data.ts";
+import { MENU_CATEGORIES } from "../../../menu/data.ts";
+import type { Category } from "../../../menu/data.ts";
 
 type LocalCategory = {
   id: string;
@@ -26,7 +27,7 @@ const TAB_LABELS: Record<string, string> = {
 
 const TABS = ["all", "food", "beverage", "dessert", "takeaway"];
 
-const initialCategories: LocalCategory[] = MENU_CATEGORIES.map((c) => ({
+const initialCategories: LocalCategory[] = MENU_CATEGORIES.map((c: Category) => ({
   id: c.id,
   label: c.label,
   tab: c.tab,
@@ -76,7 +77,7 @@ export default function CategoriesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-serif font-bold">Menu Categories</h1>
-          <p className="text-sm text-muted-foreground mt-1">{categories.length} categories · {categories.reduce((s, c) => s + c.dishCount, 0)} dishes total</p>
+          <p className="text-sm text-muted-foreground mt-1">{categories.length} categories \u00b7 {categories.reduce((s, c) => s + c.dishCount, 0)} dishes total</p>
         </div>
         <button
           onClick={() => setAdding(true)}
