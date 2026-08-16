@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button.tsx";
 import { toast } from "sonner";
 
 const NAV_LINKS = [
-  { label: "Главная", href: "/" },
-  { label: "Наша история", href: "/story" },
-  { label: "Меню", href: "/#menu" },
-  { label: "Кейтеринг", href: "/catering" },
-  { label: "Рестораны", href: "/locations" },
-  { label: "Карьера", href: "/careers" },
-  { label: "Контакты", href: "/contact" },
+  { label: "\u0413\u043b\u0430\u0432\u043d\u0430\u044f", href: "/" },
+  { label: "\u041d\u0430\u0448\u0430 \u0438\u0441\u0442\u043e\u0440\u0438\u044f", href: "/story" },
+  { label: "\u041c\u0435\u043d\u044e", href: "/menu" },
+  { label: "\u041a\u0435\u0439\u0442\u0435\u0440\u0438\u043d\u0433", href: "/catering" },
+  { label: "\u0420\u0435\u0441\u0442\u043e\u0440\u0430\u043d\u044b", href: "/locations" },
+  { label: "\u041a\u0430\u0440\u044c\u0435\u0440\u0430", href: "/careers" },
+  { label: "\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u044b", href: "/contact" },
 ] as const;
 
 export default function Navbar() {
@@ -44,18 +44,18 @@ export default function Navbar() {
           <Button
             className="cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90"
             onClick={() =>
-              toast("Скоро будет доступно!", {
-                description: "Онлайн-заказ уже в пути.",
+              toast("\u0421\u043a\u043e\u0440\u043e \u0431\u0443\u0434\u0435\u0442 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e!", {
+                description: "\u041e\u043d\u043b\u0430\u0439\u043d-\u0437\u0430\u043a\u0430\u0437 \u0443\u0436\u0435 \u0432 \u043f\u0443\u0442\u0438.",
               })
             }
           >
-            Заказать
+            {"\u0417\u0430\u043a\u0430\u0437\u0430\u0442\u044c"}
           </Button>
         </div>
 
         <button
           className="cursor-pointer text-foreground md:hidden"
-          aria-label="Открыть меню"
+          aria-label="\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u043c\u0435\u043d\u044e"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -84,12 +84,12 @@ export default function Navbar() {
               className="mt-2 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => {
                 setOpen(false);
-                toast("Скоро будет доступно!", {
-                  description: "Онлайн-заказ уже в пути.",
+                toast("\u0421\u043a\u043e\u0440\u043e \u0431\u0443\u0434\u0435\u0442 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e!", {
+                  description: "\u041e\u043d\u043b\u0430\u0439\u043d-\u0437\u0430\u043a\u0430\u0437 \u0443\u0436\u0435 \u0432 \u043f\u0443\u0442\u0438.",
                 });
               }}
             >
-              Заказать
+              {"\u0417\u0430\u043a\u0430\u0437\u0430\u0442\u044c"}
             </Button>
           </nav>
         </motion.div>
