@@ -4,6 +4,7 @@ import Index from "./pages/Index.tsx";
 import Story from "./pages/Story.tsx";
 import Catering from "./pages/catering/page.tsx";
 import Locations from "./pages/locations/page.tsx";
+import Careers from "./pages/careers/page.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/story" element={<Story />} />
           <Route path="/catering" element={<Catering />} />
           <Route path="/locations" element={<Locations />} />
+          <Route path="/careers" element={<Careers />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

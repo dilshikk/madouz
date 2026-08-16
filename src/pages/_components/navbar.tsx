@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: "Меню", href: "/#menu" },
   { label: "Кейтеринг", href: "/catering" },
   { label: "Рестораны", href: "/locations" },
+  { label: "Карьера", href: "/careers" },
   { label: "Контакты", href: "/#contact" },
 ] as const;
 
@@ -27,7 +28,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}

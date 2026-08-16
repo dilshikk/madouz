@@ -30,6 +30,7 @@ const QUICK_LINKS = [
   { label: "Меню", href: "/#menu" },
   { label: "Кейтеринг", href: "/catering" },
   { label: "Рестораны", href: "/locations" },
+  { label: "Карьера", href: "/careers" },
   { label: "Связаться с нами", href: "/#contact" },
 ] as const;
 
@@ -68,13 +69,13 @@ export default function Footer() {
               <span className="font-serif text-2xl font-bold">MADO</span>
             </div>
             <p className="mt-4 text-sm text-primary-foreground/75">
-              Ето официальный сайт MADO Ташкент, Узбекистан.
+              Официальный сайт MADO Ташкент, Узбекистан.
             </p>
             <div className="mt-4 flex items-start gap-2 text-sm text-primary-foreground/75">
               <Mail className="mt-0.5 size-4 shrink-0 text-accent" />
               <span>
-                Для получения дополнительной информации и бронирования,
-                пожалуйста, свяжитесь с нами по адресу:{" "}
+                Для получения дополнительной информации и бронирования
+                свяжитесь с нами:{" "}
                 <a
                   href="mailto:madotashkent@gmail.com"
                   className="hover:text-accent"
@@ -92,7 +93,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-serif text-lg font-bold">Меню</h3>
+            <h3 className="font-serif text-lg font-bold">Навигация</h3>
             <nav className="mt-4 flex flex-col gap-2">
               {QUICK_LINKS.map((link) => (
                 <a
