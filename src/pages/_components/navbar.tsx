@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { label: "Кейтеринг", href: "/catering" },
   { label: "Рестораны", href: "/locations" },
   { label: "Карьера", href: "/careers" },
-  { label: "Контакты", href: "/#contact" },
+  { label: "Контакты", href: "/contact" },
 ] as const;
 
 export default function Navbar() {

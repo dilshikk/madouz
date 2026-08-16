@@ -31,7 +31,7 @@ const QUICK_LINKS = [
   { label: "Кейтеринг", href: "/catering" },
   { label: "Рестораны", href: "/locations" },
   { label: "Карьера", href: "/careers" },
-  { label: "Связаться с нами", href: "/#contact" },
+  { label: "Контакты", href: "/contact" },
 ] as const;
 
 const SOCIALS = [
@@ -74,12 +74,7 @@ export default function Footer() {
             <div className="mt-4 flex items-start gap-2 text-sm text-primary-foreground/75">
               <Mail className="mt-0.5 size-4 shrink-0 text-accent" />
               <span>
-                Для получения дополнительной информации и бронирования
-                свяжитесь с нами:{" "}
-                <a
-                  href="mailto:madotashkent@gmail.com"
-                  className="hover:text-accent"
-                >
+                <a href="mailto:madotashkent@gmail.com" className="hover:text-accent">
                   madotashkent@gmail.com
                 </a>
               </span>
