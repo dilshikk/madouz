@@ -23,13 +23,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form.tsx";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select.tsx";
 import Navbar from "../_components/navbar.tsx";
 import Footer from "../_components/footer.tsx";
 
@@ -43,7 +36,7 @@ const WHY_ITEMS = [
   {
     icon: TrendingUp,
     title: "Возможности для роста",
-    text: "Развивайте свои навыки и строите карьеру в профессиональной среде.",
+    text: "Развивайте свои навыки и стройте карьеру в профессиональной среде.",
   },
   {
     icon: Users,
@@ -80,14 +73,18 @@ const applySchema = z.object({
 
 type ApplyFormValues = z.infer<typeof applySchema>;
 
-function ApplyForm({ defaultPosition }: { defaultPosition?: string }) {
+// Shared select class
+const selectCls =
+  "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+
+function ApplyForm() {
   const form = useForm<ApplyFormValues>({
     resolver: zodResolver(applySchema),
     defaultValues: {
       fullName: "",
       phone: "",
       email: "",
-      position: defaultPosition ?? "",
+      position: "",
       branch: "",
       experience: "",
       message: "",
@@ -152,20 +149,16 @@ function ApplyForm({ defaultPosition }: { defaultPosition?: string }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Вакансия</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Выберите вакансию" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
+              <FormControl>
+                <select className={selectCls} {...field}>
+                  <option value="">Выберите вакансию</option>
                   {POSITIONS.map((p) => (
-                    <SelectItem key={p.title} value={p.title}>
+                    <option key={p.title} value={p.title}>
                       {p.title}
-                    </SelectItem>
+                    </option>
                   ))}
-                </SelectContent>
-              </Select>
+                </select>
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -176,17 +169,13 @@ function ApplyForm({ defaultPosition }: { defaultPosition?: string }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Ресторан</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Выберите ресторан" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="city-mall">MADO Сити Молл</SelectItem>
-                  <SelectItem value="park-in-mall">MADO Парк ин Молл</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormControl>
+                <select className={selectCls} {...field}>
+                  <option value="">Выберите ресторан</option>
+                  <option value="city-mall">MADO Сити Молл</option>
+                  <option value="park-in-mall">MADO Парк ин Молл</option>
+                </select>
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -474,7 +463,7 @@ export default function Careers() {
               className="shrink-0 cursor-pointer"
               asChild
             >
-              <a href="/#contact">
+              <a href="/contact">
                 Написать нам <ArrowRight className="size-4" />
               </a>
             </Button>

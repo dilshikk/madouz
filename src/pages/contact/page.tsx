@@ -22,13 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form.tsx";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select.tsx";
 import Navbar from "../_components/navbar.tsx";
 import Footer from "../_components/footer.tsx";
 
@@ -80,7 +73,11 @@ const SUBJECTS = [
   "Партнёрство",
 ] as const;
 
-// ─── Page ────────────────────────────────────────────────────────────────────
+// Shared native select styles
+const selectCls =
+  "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Contact() {
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -272,23 +269,16 @@ export default function Contact() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Тема обращения</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          value={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Выберите тему" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
+                        <FormControl>
+                          <select className={selectCls} {...field}>
+                            <option value="">Выберите тему</option>
                             {SUBJECTS.map((s) => (
-                              <SelectItem key={s} value={s}>
+                              <option key={s} value={s}>
                                 {s}
-                              </SelectItem>
+                              </option>
                             ))}
-                          </SelectContent>
-                        </Select>
+                          </select>
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -350,7 +340,7 @@ export default function Contact() {
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 MADO расположен в нескольких торговых центрах Ташкента.
-                Найдите ближайший ю ресторан и насладитесь настоящей
+                Найдите ближайший ресторан и насладитесь настоящей
                 турецкой кухней.
               </p>
               <Button
