@@ -1,16 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
+import { cn } from "@/lib/utils.ts";
 
 type Stat = {
   label: string;
   value: number;
   suffix?: string;
+  className: string;
 };
 
 const STATS: Stat[] = [
-  { label: "Блюд в меню", value: 250, suffix: "+" },
-  { label: "Лет истории", value: 300, suffix: "+" },
-  { label: "Ресторанов в ОАЭ", value: 8 },
+  {
+    label: "Блюд в меню",
+    value: 250,
+    suffix: "+",
+    className: "bg-primary text-primary-foreground",
+  },
+  {
+    label: "Лет истории",
+    value: 300,
+    suffix: "+",
+    className: "bg-accent text-accent-foreground",
+  },
+  {
+    label: "Ресторанов в ОАЭ",
+    value: 8,
+    className: "bg-[#7a4a2b] text-white",
+  },
 ];
 
 function Counter({ value, suffix }: { value: number; suffix?: string }) {
@@ -45,8 +61,8 @@ function Counter({ value, suffix }: { value: number; suffix?: string }) {
 
 export default function Stats() {
   return (
-    <section className="border-b border-border bg-secondary/40">
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 px-6 py-16 sm:grid-cols-3">
+    <section className="bg-background">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 px-6 py-16 sm:grid-cols-3">
         {STATS.map((stat, i) => (
           <motion.div
             key={stat.label}
@@ -54,12 +70,15 @@ export default function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-            className="text-center"
+            className={cn(
+              "rounded-xl px-6 py-10 text-center shadow-sm",
+              stat.className,
+            )}
           >
-            <div className="font-serif text-5xl font-bold text-primary">
+            <div className="font-serif text-5xl font-bold">
               <Counter value={stat.value} suffix={stat.suffix} />
             </div>
-            <p className="mt-2 text-sm font-medium tracking-wide text-muted-foreground uppercase">
+            <p className="mt-2 text-sm font-medium tracking-wide uppercase opacity-90">
               {stat.label}
             </p>
           </motion.div>
