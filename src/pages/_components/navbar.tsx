@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Menu, X, IceCreamCone } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
 import { toast } from "sonner";
 
 const NAV_LINKS = [
-  { label: "Главная", href: "#" },
-  { label: "Наша история", href: "#story" },
-  { label: "Меню", href: "#menu" },
-  { label: "Рестораны", href: "#locations" },
-  { label: "Контакты", href: "#contact" },
+  { label: "Главная", href: "/" },
+  { label: "Наша история", href: "/story" },
+  { label: "Меню", href: "/#menu" },
+  { label: "Рестораны", href: "/#locations" },
+  { label: "Контакты", href: "/#contact" },
 ] as const;
 
 export default function Navbar() {
@@ -18,12 +19,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1140px] items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <IceCreamCone className="size-6 text-primary" />
           <span className="font-serif text-2xl font-bold tracking-wide text-primary">
             MADO
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
