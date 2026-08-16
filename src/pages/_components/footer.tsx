@@ -25,11 +25,12 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 const QUICK_LINKS = [
-  { label: "Главная", href: "#" },
-  { label: "Наша история", href: "#story" },
-  { label: "Меню", href: "#menu" },
-  { label: "Рестораны", href: "#locations" },
-  { label: "Связаться с нами", href: "#contact" },
+  { label: "Главная", href: "/" },
+  { label: "Наша история", href: "/story" },
+  { label: "Меню", href: "/#menu" },
+  { label: "Кейтеринг", href: "/catering" },
+  { label: "Рестораны", href: "/#locations" },
+  { label: "Связаться с нами", href: "/#contact" },
 ] as const;
 
 const SOCIALS = [
