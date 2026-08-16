@@ -48,20 +48,20 @@ const FEATURES = [
 
 const GALLERY_STRIP = [
   {
-    src: "https://images.unsplash.com/photo-1571990925439-2b6072445908?auto=format&fit=crop&w=900&q=80",
-    alt: "Фисташковое мороженое",
+    src: "https://hercules-cdn.com/file_zHFz2EjzlyoLPkp7dFOxyIOI",
+    alt: "Дондурма с мёдом и миндалём",
   },
   {
-    src: "https://images.unsplash.com/photo-1441633980922-d18ca151ee64?auto=format&fit=crop&w=900&q=80",
-    alt: "Мёд, стекающий на десерт",
+    src: "https://hercules-cdn.com/file_bRWtS51R48M2E98BBZ26KGhN",
+    alt: "Пахлава с фисташками и каймаком",
   },
   {
-    src: "https://images.unsplash.com/photo-1778448563279-e7b39093933c?auto=format&fit=crop&w=900&q=80",
-    alt: "Пахлава с фисташками",
+    src: "https://hercules-cdn.com/file_quDvQLQZKt3c9ZiCW05PUT2S",
+    alt: "Пахлава со шпинатом, политая мёдом",
   },
   {
-    src: "https://images.unsplash.com/photo-1567407453533-ce35bc03ecb4?auto=format&fit=crop&w=900&q=80",
-    alt: "Турецкий чай со сладостями",
+    src: "https://hercules-cdn.com/file_MMxOPjlxQUlhpQrks4PZJQlj",
+    alt: "Фисташковое мороженое в вафельном рожке",
   },
 ] as const;
 
@@ -158,7 +158,7 @@ export default function Story() {
                   <img
                     src={photo.src}
                     alt={photo.alt}
-                    className="aspect-square w-full object-cover grayscale"
+                    className="aspect-square w-full object-cover object-top grayscale"
                   />
                 </div>
               ))}
