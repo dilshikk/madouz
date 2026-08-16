@@ -23,8 +23,8 @@ const STATS: Stat[] = [
     className: "bg-accent text-accent-foreground",
   },
   {
-    label: "Ресторанов в ОАЭ",
-    value: 8,
+    label: "Ресторана в ташкенте",
+    value: 2,
     className: "bg-[#7a4a2b] text-white",
   },
 ];

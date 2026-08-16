@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Phone, Mail, IceCreamCone } from "lucide-react";
-import { SiFacebook, SiInstagram, SiTiktok } from "@icons-pack/react-simple-icons";
+import { SiInstagram, SiTelegram } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { Textarea } from "@/components/ui/textarea.tsx";
@@ -33,9 +33,8 @@ const QUICK_LINKS = [
 ] as const;
 
 const SOCIALS = [
-  { icon: SiFacebook, href: "https://www.facebook.com/Madouae", label: "Facebook" },
-  { icon: SiInstagram, href: "https://www.instagram.com/madouae/", label: "Instagram" },
-  { icon: SiTiktok, href: "https://www.tiktok.com/@mado.uae", label: "Tiktok" },
+  { icon: SiInstagram, href: "https://www.instagram.com/madotashkent", label: "Instagram" },
+  { icon: SiTelegram, href: "https://t.me/madotashkent", label: "Telegram" },
 ] as const;
 
 export default function Footer() {
@@ -68,24 +67,31 @@ export default function Footer() {
               <span className="font-serif text-2xl font-bold">MADO</span>
             </div>
             <p className="mt-4 text-sm text-primary-foreground/75">
-              Это официальный сайт MADO в ОАЭ.
+              Ето официальный сайт MADO Ташкент, Узбекистан.
             </p>
-            <div className="mt-4 flex items-center gap-2 text-sm text-primary-foreground/75">
-              <Mail className="size-4 text-accent" />
-              <a href="mailto:marketing@mado.ae" className="hover:text-accent">
-                marketing@mado.ae
-              </a>
+            <div className="mt-4 flex items-start gap-2 text-sm text-primary-foreground/75">
+              <Mail className="mt-0.5 size-4 shrink-0 text-accent" />
+              <span>
+                Для получения дополнительной информации и бронирования,
+                пожалуйста, свяжитесь с нами по адресу:{" "}
+                <a
+                  href="mailto:madotashkent@gmail.com"
+                  className="hover:text-accent"
+                >
+                  madotashkent@gmail.com
+                </a>
+              </span>
             </div>
             <div className="mt-2 flex items-center gap-2 text-sm text-primary-foreground/75">
               <Phone className="size-4 text-accent" />
-              <a href="tel:+971504831675" className="hover:text-accent">
-                +971 50 483 1675
+              <a href="tel:+998900080040" className="hover:text-accent">
+                +998 90 008 00 40
               </a>
             </div>
           </div>
 
           <div>
-            <h3 className="font-serif text-lg font-bold">Быстрые ссылки</h3>
+            <h3 className="font-serif text-lg font-bold">Меню</h3>
             <nav className="mt-4 flex flex-col gap-2">
               {QUICK_LINKS.map((link) => (
                 <a
@@ -176,7 +182,7 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-primary-foreground/15 pt-6 sm:flex-row">
           <p className="text-sm text-primary-foreground/70">
-            © {new Date().getFullYear()} MADO UAE
+            © {new Date().getFullYear()} MADO Tashkent
           </p>
           <div className="flex items-center gap-4">
             {SOCIALS.map((social) => (
