@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { label: "Наша история", href: "/story" },
   { label: "Меню", href: "/#menu" },
   { label: "Кейтеринг", href: "/catering" },
-  { label: "Рестораны", href: "/#locations" },
+  { label: "Рестораны", href: "/locations" },
   { label: "Контакты", href: "/#contact" },
 ] as const;
 
