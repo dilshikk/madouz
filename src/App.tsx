@@ -13,7 +13,9 @@ import AdminDashboard from "./pages/admin/dashboard/page.tsx";
 import CategoriesPage from "./pages/admin/menu/categories/page.tsx";
 import DishesPage from "./pages/admin/menu/dishes/page.tsx";
 import LocationsAdminPage from "./pages/admin/locations/page.tsx";
+import CateringContentPage from "./pages/admin/catering/content/page.tsx";
 import CateringRequestsPage from "./pages/admin/catering/requests/page.tsx";
+import MediaPage from "./pages/admin/media/page.tsx";
 import VacanciesPage from "./pages/admin/careers/vacancies/page.tsx";
 import ApplicationsPage from "./pages/admin/careers/applications/page.tsx";
 import FaqPage from "./pages/admin/faq/page.tsx";
@@ -46,7 +48,9 @@ export default function App() {
             <Route path="menu/categories" element={<CategoriesPage />} />
             <Route path="menu/dishes" element={<DishesPage />} />
             <Route path="locations" element={<LocationsAdminPage />} />
+            <Route path="catering/content" element={<CateringContentPage />} />
             <Route path="catering/requests" element={<CateringRequestsPage />} />
+            <Route path="media" element={<MediaPage />} />
             <Route path="promotions" element={<PromotionsPage />} />
             <Route path="requests" element={<RequestsPage />} />
             <Route path="careers/vacancies" element={<VacanciesPage />} />
