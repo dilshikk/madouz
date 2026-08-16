@@ -17,23 +17,23 @@ type Highlight = {
 
 const HIGHLIGHTS: Highlight[] = [
   {
-    title: "Signature Ice Cream",
+    title: "Фирменное мороженое",
     description:
-      "Rich, handcrafted Turkish ice cream (dondurma) made with traditional recipes and premium ingredients.",
+      "Насыщенное мороженое (dondurma), приготовленное вручную по традиционным турецким рецептам из отборных ингредиентов.",
     image: "https://hercules-cdn.com/file_pufuhQShef4uFjB7yOwT4cM8",
     icon: IceCreamCone,
   },
   {
-    title: "Handcrafted Desserts",
+    title: "Десерты ручной работы",
     description:
-      "From golden baklava to filled profiteroles, every dessert is crafted with generations of expertise.",
+      "От золотистой пахлавы до профитролей с начинкой — каждый десерт создан с многолетним опытом и мастерством.",
     image: "https://hercules-cdn.com/file_VKPbNpeYeiy5CmAhJ20YwDHt",
     icon: Cake,
   },
   {
-    title: "Ice Cream Cakes",
+    title: "Торты-мороженое",
     description:
-      "Celebration-worthy cakes layered with our signature ice creams, perfect for any occasion.",
+      "Праздничные торты, собранные из нашего фирменного мороженого — идеальны для любого торжества.",
     image: "https://hercules-cdn.com/file_c9jJ1YCm3AMZ6M4kB4c9FIEZ",
     icon: Coffee,
   },
@@ -51,14 +51,15 @@ export default function Highlights() {
           className="mx-auto max-w-2xl text-center"
         >
           <p className="mb-3 text-sm font-semibold tracking-[0.3em] text-accent uppercase">
-            A Real Taste Feast
+            Настоящий праздник вкуса
           </p>
           <h2 className="text-balance font-serif text-4xl font-bold text-foreground sm:text-5xl">
-            Experience the Authentic Turkish Cuisine
+            Почувствуйте вкус настоящей турецкой кухни
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Discover centuries-old flavors, handcrafted desserts, and iconic
-            Turkish dishes made with tradition and passion.
+            Откройте для себя вековые традиции, десерты, приготовленные
+            вручную, и легендарные турецкие блюда, созданные с любовью и
+            уважением к традициям.
           </p>
         </motion.div>
 
@@ -104,7 +105,7 @@ export default function Highlights() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              View Full Menu <ArrowRight className="size-4" />
+              Смотреть полное меню <ArrowRight className="size-4" />
             </a>
           </Button>
         </div>

@@ -17,14 +17,14 @@ export default function NotFound() {
       <div className="text-center space-y-6">
         <div className="space-y-2">
           <h1 className="text-6xl font-bold text-muted-foreground">404</h1>
-          <h2 className="text-2xl font-semibold">Page Not Found</h2>
+          <h2 className="text-2xl font-semibold">Страница не найдена</h2>
         </div>
         <p className="text-lg text-muted-foreground max-w-md mx-auto">
-          This page does not exist.
+          Эта страница не существует.
         </p>
         <div className="pt-4">
           <Button asChild>
-            <Link to="/">Return to Home</Link>
+            <Link to="/">Вернуться на главную</Link>
           </Button>
         </div>
       </div>

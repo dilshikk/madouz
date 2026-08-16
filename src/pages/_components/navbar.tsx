@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button.tsx";
 import { toast } from "sonner";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#" },
-  { label: "Our Story", href: "#story" },
-  { label: "Menu", href: "#menu" },
-  { label: "Locations", href: "#locations" },
-  { label: "Contact", href: "#contact" },
+  { label: "Главная", href: "#" },
+  { label: "Наша история", href: "#story" },
+  { label: "Меню", href: "#menu" },
+  { label: "Рестораны", href: "#locations" },
+  { label: "Контакты", href: "#contact" },
 ] as const;
 
 export default function Navbar() {
@@ -41,18 +41,18 @@ export default function Navbar() {
           <Button
             className="cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90"
             onClick={() =>
-              toast("Coming soon in a future milestone!", {
-                description: "Online ordering is on its way.",
+              toast("Скоро будет доступно!", {
+                description: "Онлайн-заказ уже в пути.",
               })
             }
           >
-            Order Now
+            Заказать
           </Button>
         </div>
 
         <button
           className="cursor-pointer text-foreground md:hidden"
-          aria-label="Toggle menu"
+          aria-label="Открыть меню"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -81,12 +81,12 @@ export default function Navbar() {
               className="mt-2 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => {
                 setOpen(false);
-                toast("Coming soon in a future milestone!", {
-                  description: "Online ordering is on its way.",
+                toast("Скоро будет доступно!", {
+                  description: "Онлайн-заказ уже в пути.",
                 });
               }}
             >
-              Order Now
+              Заказать
             </Button>
           </nav>
         </motion.div>

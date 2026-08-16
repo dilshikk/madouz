@@ -8,9 +8,9 @@ type Stat = {
 };
 
 const STATS: Stat[] = [
-  { label: "Dishes", value: 250, suffix: "+" },
-  { label: "Years of Heritage", value: 300, suffix: "+" },
-  { label: "Locations in the UAE", value: 8 },
+  { label: "Блюд в меню", value: 250, suffix: "+" },
+  { label: "Лет истории", value: 300, suffix: "+" },
+  { label: "Ресторанов в ОАЭ", value: 8 },
 ];
 
 function Counter({ value, suffix }: { value: number; suffix?: string }) {

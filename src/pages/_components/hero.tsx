@@ -23,7 +23,7 @@ export default function Hero() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mb-4 text-sm font-semibold tracking-[0.3em] text-accent uppercase"
         >
-          A Real Taste Feast
+          Настоящий праздник вкуса
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
@@ -31,7 +31,7 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
           className="max-w-3xl text-balance font-serif text-5xl font-bold leading-tight text-primary-foreground sm:text-6xl md:text-7xl"
         >
-          Authentic Turkish Cuisine
+          Аутентичная турецкая кухня
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 24 }}
@@ -39,9 +39,9 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.22 }}
           className="mt-6 max-w-xl text-balance text-lg text-primary-foreground/85"
         >
-          A real taste feast. Discover centuries-old flavors, handcrafted
-          desserts, and iconic Turkish dishes made with tradition and
-          passion.
+          Настоящий праздник вкуса. Откройте для себя вековые традиции,
+          десерты, приготовленные вручную, и легендарные турецкие блюда,
+          созданные с любовью и уважением к традициям.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -55,7 +55,7 @@ export default function Hero() {
             asChild
           >
             <a href="#menu">
-              View Menu <ArrowRight className="size-4" />
+              Смотреть меню <ArrowRight className="size-4" />
             </a>
           </Button>
           <Button
@@ -63,7 +63,7 @@ export default function Hero() {
             className="cursor-pointer border border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
             asChild
           >
-            <a href="#locations">Visit Our Locations</a>
+            <a href="#locations">Наши рестораны</a>
           </Button>
         </motion.div>
       </div>

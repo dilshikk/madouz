@@ -17,19 +17,19 @@ import {
 } from "@/components/ui/form.tsx";
 
 const contactSchema = z.object({
-  name: z.string().min(1, "Please enter your name"),
-  email: z.string().email("Please enter a valid email"),
+  name: z.string().min(1, "Введите ваше имя"),
+  email: z.string().email("Введите корректный email"),
   message: z.string().optional(),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 const QUICK_LINKS = [
-  { label: "Home", href: "#" },
-  { label: "Our Story", href: "#story" },
-  { label: "Menu", href: "#menu" },
-  { label: "Locations", href: "#locations" },
-  { label: "Contact Us", href: "#contact" },
+  { label: "Главная", href: "#" },
+  { label: "Наша история", href: "#story" },
+  { label: "Меню", href: "#menu" },
+  { label: "Рестораны", href: "#locations" },
+  { label: "Связаться с нами", href: "#contact" },
 ] as const;
 
 const SOCIALS = [
@@ -45,8 +45,8 @@ export default function Footer() {
   });
 
   const onSubmit = (values: ContactFormValues) => {
-    toast.success("Message sent!", {
-      description: `Thanks ${values.name}, our team will get back to you shortly.`,
+    toast.success("Сообщение отправлено!", {
+      description: `Спасибо, ${values.name}! Наша команда свяжется с вами в ближайшее время.`,
     });
     form.reset();
   };
@@ -68,8 +68,7 @@ export default function Footer() {
               <span className="font-serif text-2xl font-bold">MADO</span>
             </div>
             <p className="mt-4 text-sm text-primary-foreground/75">
-              This is the official website of MADO Dubai, United Arab
-              Emirates.
+              Это официальный сайт MADO в ОАЭ.
             </p>
             <div className="mt-4 flex items-center gap-2 text-sm text-primary-foreground/75">
               <Mail className="size-4 text-accent" />
@@ -86,7 +85,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-serif text-lg font-bold">Quick Links</h3>
+            <h3 className="font-serif text-lg font-bold">Быстрые ссылки</h3>
             <nav className="mt-4 flex flex-col gap-2">
               {QUICK_LINKS.map((link) => (
                 <a
@@ -101,7 +100,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-serif text-lg font-bold">Contact Us</h3>
+            <h3 className="font-serif text-lg font-bold">Связаться с нами</h3>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -113,11 +112,11 @@ export default function Footer() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-primary-foreground/80">
-                        Name
+                        Имя
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="John Smith"
+                          placeholder="Иван Иванов"
                           className="border-primary-foreground/20 bg-primary-foreground/5 text-primary-foreground placeholder:text-primary-foreground/40"
                           {...field}
                         />
@@ -151,7 +150,7 @@ export default function Footer() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-primary-foreground/80">
-                        Message
+                        Сообщение
                       </FormLabel>
                       <FormControl>
                         <Textarea
@@ -168,7 +167,7 @@ export default function Footer() {
                   type="submit"
                   className="w-full cursor-pointer bg-accent text-accent-foreground hover:bg-accent/90"
                 >
-                  Send
+                  Отправить
                 </Button>
               </form>
             </Form>

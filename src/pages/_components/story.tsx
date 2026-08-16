@@ -13,20 +13,20 @@ export default function Story() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <p className="mb-3 text-sm font-semibold tracking-[0.3em] text-accent uppercase">
-            Our Story
+            Наша история
           </p>
           <h2 className="text-balance font-serif text-4xl font-bold text-foreground sm:text-5xl">
-            300 Years of Heritage.
+            300 лет традиций.
             <br />
-            One World of Flavor.
+            Один мир вкуса.
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            With over 300 years of heritage and more than 300 locations
-            worldwide, MADO brings the authentic taste of Turkish cuisine to
-            every table. More than an ice-cream destination, MADO offers a
-            full dining experience — from signature desserts and rich ice
-            creams to ice-cream cakes, filled profiteroles, and refreshing
-            beverages — all crafted with tradition and care.
+            Более 300 лет наследия и более 300 ресторанов по всему миру — MADO
+            дарит гостям подлинный вкус турецкой кухни за каждым столом. Это
+            больше, чем место с мороженым — это полноценный гастрономический
+            опыт: от фирменных десертов и насыщенного мороженого до
+            тортов-мороженого, профитролей с начинкой и освежающих напитков —
+            всё приготовлено с традицией и заботой.
           </p>
           <Button
             size="lg"
@@ -34,7 +34,7 @@ export default function Story() {
             asChild
           >
             <a href="#locations">
-              Learn More <ArrowRight className="size-4" />
+              Узнать больше <ArrowRight className="size-4" />
             </a>
           </Button>
         </motion.div>
@@ -49,7 +49,7 @@ export default function Story() {
           <div className="absolute -top-6 -left-6 hidden h-full w-full rounded-2xl border-2 border-accent/50 sm:block" />
           <img
             src="https://hercules-cdn.com/file_c9jJ1YCm3AMZ6M4kB4c9FIEZ"
-            alt="MADO Turkish ice cream cake"
+            alt="Турецкий торт-мороженое MADO"
             className="relative aspect-4/3 w-full rounded-2xl object-cover shadow-xl"
           />
         </motion.div>

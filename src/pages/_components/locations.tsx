@@ -13,10 +13,10 @@ type Location = {
 
 const LOCATIONS: Location[] = [
   {
-    name: "Jumeirah",
+    name: "Джумейра",
     phone: "04 222 2338",
     address: "553 Jumeirah St – Umm Suqeim First – Umm Suqeim 1",
-    timings: "Monday – Sunday (8am – 1am)",
+    timings: "Понедельник – воскресенье (8:00 – 01:00)",
     mapUrl: "https://maps.app.goo.gl/R9L13Cva59Brxpvv5",
   },
   {
@@ -24,7 +24,7 @@ const LOCATIONS: Location[] = [
     phone: "04 388 2588",
     address:
       "Unit GS-039, The District, 1st Floor, Dubai Mall, Financial Ctr St – Burj Khalifa – Downtown Dubai",
-    timings: "Mon–Thu (9am–12am) · Fri–Sun (9am–1am)",
+    timings: "Пн–Чт (9:00–00:00) · Пт–Вс (9:00–01:00)",
     mapUrl: "https://maps.app.goo.gl/i2BXBJ3QN2F5aagR6",
   },
   {
@@ -32,42 +32,42 @@ const LOCATIONS: Location[] = [
     phone: "04 343 5400",
     address:
       "1st Floor, Dubai Hills Mall, Al Khail Rd – Hadaeq Sheikh Mohammed Bin Rashid",
-    timings: "Mon–Thu (9am–12am) · Fri–Sun (9am–1am)",
+    timings: "Пн–Чт (9:00–00:00) · Пт–Вс (9:00–01:00)",
     mapUrl: "https://maps.app.goo.gl/GQcgsRaENWcTG7vv6",
   },
   {
-    name: "Sharjah Corniche",
+    name: "Шарджа, Корниш",
     phone: "06 567 7776",
     address: "Villa No. 5 – Al Muntazah St – Al Fisht – Alheera Suburb",
-    timings: "Mon–Thu (8am–1am) · Fri–Sat (8am–2am) · Sun (8am–1am)",
+    timings: "Пн–Чт (8:00–01:00) · Пт–Сб (8:00–02:00) · Вс (8:00–01:00)",
     mapUrl: "https://maps.app.goo.gl/EYHNbh5cS7SiVD487",
   },
   {
     name: "Rahmania Mall",
     phone: "06 731 4864",
     address: "100a Abu Amr Al Basri St – Al Rahmania Suburb – Kshishah 6",
-    timings: "Monday – Sunday (9am – 11pm)",
+    timings: "Понедельник – воскресенье (9:00 – 23:00)",
     mapUrl: "https://maps.app.goo.gl/mz5suYAwsLiNCbFD6",
   },
   {
-    name: "Ajman City Centre",
+    name: "Аджман, Сити-Центр",
     phone: "06 749 9929",
     address: "City Centre – Al Jerf 2 – Ajman",
-    timings: "Monday – Sunday (9am – 12am)",
+    timings: "Понедельник – воскресенье (9:00 – 00:00)",
     mapUrl: "https://maps.app.goo.gl/dDYwjE9xABD9okATA",
   },
   {
-    name: "RAK Al Manar Mall",
+    name: "Рас-эль-Хайма, Al Manar Mall",
     phone: "07 227 0058",
     address: "Dafan Al Nakheel – Ras Al Khaimah",
-    timings: "Mon–Thu (8am–11pm) · Fri–Sat (8am–12am) · Sun (8am–11pm)",
+    timings: "Пн–Чт (8:00–23:00) · Пт–Сб (8:00–00:00) · Вс (8:00–23:00)",
     mapUrl: "https://maps.app.goo.gl/75psEECTrkB6AEXy6",
   },
   {
-    name: "Fujairah City Center",
+    name: "Фуджейра, Сити-Центр",
     phone: "09 244 2168",
     address: "Ground Floor, City Center Fujairah, Next to Pandora",
-    timings: "Monday – Sunday (9am – 12:30am)",
+    timings: "Понедельник – воскресенье (9:00 – 00:30)",
     mapUrl: "https://maps.app.goo.gl/4uPgxtaBB3Vk6NeC9",
   },
 ];
@@ -84,13 +84,13 @@ export default function Locations() {
           className="mx-auto max-w-2xl text-center"
         >
           <p className="mb-3 text-sm font-semibold tracking-[0.3em] text-accent uppercase">
-            Find Us
+            Найдите нас
           </p>
           <h2 className="text-balance font-serif text-4xl font-bold text-foreground sm:text-5xl">
-            Our Locations
+            Наши рестораны
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Dubai, Sharjah, Ajman, Ras Al Khaimah, Fujairah
+            Дубай, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра
           </p>
         </motion.div>
 
@@ -126,7 +126,7 @@ export default function Locations() {
                     asChild
                   >
                     <a href={loc.mapUrl} target="_blank" rel="noopener noreferrer">
-                      View Map
+                      Показать на карте
                     </a>
                   </Button>
                 </CardContent>
