@@ -38,6 +38,23 @@ const initialCategories: LocalCategory[] = MENU_CATEGORIES.map((c: Category) => 
 
 const PLACEHOLDER = "https://placehold.co/400x200/e8e0d5/5c4a2a?text=Нет+фото";
 
+/**
+ * Returns true only if the string is a safe, loadable image source:
+ * - absolute http/https URL
+ * - data: URI (base64 from FileReader)
+ * - root-relative path starting with /
+ * Bare filenames like "avatar-1-123.jpg" are rejected.
+ */
+function isValidImageSrc(src: string | undefined | null): boolean {
+  if (!src || src.trim() === "") return false;
+  return (
+    src.startsWith("http://") ||
+    src.startsWith("https://") ||
+    src.startsWith("data:") ||
+    src.startsWith("/")
+  );
+}
+
 // ── Image upload cell ──────────────────────────────────────────────────────────
 function CategoryImageCell({
   image,
@@ -49,7 +66,8 @@ function CategoryImageCell({
   onUpdate: (id: string, imageUrl: string) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [preview, setPreview] = useState<string>(image || "");
+  // Only use the stored image if it's a valid src; otherwise start with empty
+  const [preview, setPreview] = useState<string>(isValidImageSrc(image) ? (image as string) : "");
   const [uploading, setUploading] = useState(false);
 
   const handleFile = (file: File) => {
