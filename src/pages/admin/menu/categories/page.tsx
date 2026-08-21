@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Plus, Edit2, Trash2, GripVertical, ChevronDown, ChevronRight, Check, X } from "lucide-react";
+import { useState, useRef } from "react";
+import { Plus, Edit2, Trash2, GripVertical, ChevronDown, ChevronRight, Check, X, Upload, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
 import { MENU_CATEGORIES } from "../../../menu/data.ts";
 import type { Category } from "../../../menu/data.ts";
@@ -9,6 +9,7 @@ type LocalCategory = {
   label: string;
   tab: string;
   dishCount: number;
+  image?: string;
 };
 
 const TAB_COLORS: Record<string, string> = {
@@ -32,7 +33,86 @@ const initialCategories: LocalCategory[] = MENU_CATEGORIES.map((c: Category) => 
   label: c.label,
   tab: c.tab,
   dishCount: c.dishes.length,
+  image: c.image || "",
 }));
+
+const PLACEHOLDER = "https://placehold.co/400x200/e8e0d5/5c4a2a?text=Нет+фото";
+
+// ── Image upload cell ──────────────────────────────────────────────────────────
+function CategoryImageCell({
+  image,
+  categoryId,
+  onUpdate,
+}: {
+  image?: string;
+  categoryId: string;
+  onUpdate: (id: string, imageUrl: string) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState<string>(image || "");
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    setUploading(true);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      setPreview(result);
+      onUpdate(categoryId, result);
+      setUploading(false);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handleFile(file);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleFile(file);
+  };
+
+  const currentImg = preview || PLACEHOLDER;
+
+  return (
+    <div className="shrink-0">
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+        className="hidden"
+        onChange={handleChange}
+      />
+      <div
+        className="relative w-16 h-10 rounded-lg overflow-hidden border border-border cursor-pointer group"
+        onClick={() => inputRef.current?.click()}
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+        title="Нажмите или перетащите фото"
+      >
+        <img
+          src={currentImg}
+          alt=""
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = PLACEHOLDER;
+          }}
+        />
+        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          {uploading ? (
+            <div className="w-4 h-4 border-2 border-white/50 border-t-white rounded-full animate-spin" />
+          ) : (
+            <Upload className="w-3.5 h-3.5 text-white" />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<LocalCategory[]>(initialCategories);
@@ -40,8 +120,11 @@ export default function CategoriesPage() {
   const [adding, setAdding] = useState(false);
   const [newLabel, setNewLabel] = useState("");
   const [newTab, setNewTab] = useState("food");
+  const [newImage, setNewImage] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editLabel, setEditLabel] = useState("");
+
+  const newImageRef = useRef<HTMLInputElement>(null);
 
   const filtered = activeTab === "all" ? categories : categories.filter((c) => c.tab === activeTab);
 
@@ -50,13 +133,21 @@ export default function CategoriesPage() {
     return acc;
   }, {});
 
+  const handleNewImageFile = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setNewImage(e.target?.result as string);
+    reader.readAsDataURL(file);
+  };
+
   const handleAdd = () => {
     if (!newLabel.trim()) return;
     setCategories([
       ...categories,
-      { id: Date.now().toString(), label: newLabel, tab: newTab, dishCount: 0 },
+      { id: Date.now().toString(), label: newLabel, tab: newTab, dishCount: 0, image: newImage },
     ]);
     setNewLabel("");
+    setNewImage("");
     setAdding(false);
   };
 
@@ -72,12 +163,18 @@ export default function CategoriesPage() {
     setEditLabel(cat.label);
   };
 
+  const updateImage = (id: string, imageUrl: string) => {
+    setCategories((prev) => prev.map((c) => c.id === id ? { ...c, image: imageUrl } : c));
+  };
+
   return (
     <div className="space-y-6 max-w-4xl">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-serif font-bold">Menu Categories</h1>
-          <p className="text-sm text-muted-foreground mt-1">{categories.length} categories \u00b7 {categories.reduce((s, c) => s + c.dishCount, 0)} dishes total</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            {categories.length} categories · {categories.reduce((s, c) => s + c.dishCount, 0)} dishes total
+          </p>
         </div>
         <button
           onClick={() => setAdding(true)}
@@ -108,33 +205,74 @@ export default function CategoriesPage() {
 
       {/* Add form */}
       {adding && (
-        <div className="bg-card border border-accent/50 rounded-xl p-4 flex flex-wrap items-end gap-3">
-          <div className="flex-1 min-w-[180px]">
-            <label className="text-xs text-muted-foreground mb-1 block">Category Name</label>
-            <input
-              autoFocus
-              value={newLabel}
-              onChange={(e) => setNewLabel(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-              placeholder="e.g. Salads"
-              className="w-full px-3 py-2 text-sm border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring"
-            />
+        <div className="bg-card border border-accent/50 rounded-xl p-4 space-y-4">
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="flex-1 min-w-[180px]">
+              <label className="text-xs text-muted-foreground mb-1 block">Category Name</label>
+              <input
+                autoFocus
+                value={newLabel}
+                onChange={(e) => setNewLabel(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+                placeholder="e.g. Salads"
+                className="w-full px-3 py-2 text-sm border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-muted-foreground mb-1 block">Section</label>
+              <select
+                value={newTab}
+                onChange={(e) => setNewTab(e.target.value)}
+                className="px-3 py-2 text-sm border border-input rounded-lg bg-background focus:outline-none"
+              >
+                {["food", "beverage", "dessert", "takeaway"].map((t) => (
+                  <option key={t} value={t}>{TAB_LABELS[t]}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex gap-2">
+              <button onClick={handleAdd} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium">Add</button>
+              <button onClick={() => { setAdding(false); setNewImage(""); }} className="px-4 py-2 bg-muted text-muted-foreground rounded-lg text-sm">Cancel</button>
+            </div>
           </div>
+
+          {/* Photo upload for new category */}
           <div>
-            <label className="text-xs text-muted-foreground mb-1 block">Section</label>
-            <select
-              value={newTab}
-              onChange={(e) => setNewTab(e.target.value)}
-              className="px-3 py-2 text-sm border border-input rounded-lg bg-background focus:outline-none"
-            >
-              {["food", "beverage", "dessert", "takeaway"].map((t) => (
-                <option key={t} value={t}>{TAB_LABELS[t]}</option>
-              ))}
-            </select>
-          </div>
-          <div className="flex gap-2">
-            <button onClick={handleAdd} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium">Add</button>
-            <button onClick={() => setAdding(false)} className="px-4 py-2 bg-muted text-muted-foreground rounded-lg text-sm">Cancel</button>
+            <label className="text-xs text-muted-foreground mb-2 block">Category Photo (optional)</label>
+            <input
+              ref={newImageRef}
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleNewImageFile(file);
+              }}
+            />
+            {newImage ? (
+              <div className="relative w-40 h-24 rounded-lg overflow-hidden border border-border group">
+                <img src={newImage} alt="preview" className="w-full h-full object-cover" />
+                <button
+                  onClick={() => setNewImage("")}
+                  className="absolute top-1 right-1 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ) : (
+              <div
+                onClick={() => newImageRef.current?.click()}
+                onDrop={(e) => { e.preventDefault(); const f = e.dataTransfer.files?.[0]; if (f) handleNewImageFile(f); }}
+                onDragOver={(e) => e.preventDefault()}
+                className="flex items-center gap-3 w-full max-w-xs px-4 py-3 border-2 border-dashed border-border rounded-xl cursor-pointer hover:border-primary/40 transition-colors"
+              >
+                <ImageIcon className="w-5 h-5 text-muted-foreground shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Click or drag to upload</p>
+                  <p className="text-xs text-muted-foreground/70 mt-0.5">PNG, JPG, WebP · max 5 MB</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -154,6 +292,7 @@ export default function CategoriesPage() {
               onSaveEdit={saveEdit}
               onCancelEdit={() => setEditingId(null)}
               onDelete={handleDelete}
+              onUpdateImage={updateImage}
             />
           ))}
         </div>
@@ -168,6 +307,7 @@ export default function CategoriesPage() {
             onSaveEdit={saveEdit}
             onCancelEdit={() => setEditingId(null)}
             onDelete={handleDelete}
+            onUpdateImage={updateImage}
           />
         </div>
       )}
@@ -184,10 +324,11 @@ type ListProps = {
   onSaveEdit: (id: string) => void;
   onCancelEdit: () => void;
   onDelete: (id: string) => void;
+  onUpdateImage: (id: string, url: string) => void;
 };
 
 function TabGroup({
-  tab, categories, editingId, editLabel, setEditLabel, onStartEdit, onSaveEdit, onCancelEdit, onDelete,
+  tab, categories, editingId, editLabel, setEditLabel, onStartEdit, onSaveEdit, onCancelEdit, onDelete, onUpdateImage,
 }: { tab: string } & ListProps) {
   const [open, setOpen] = useState(true);
   return (
@@ -210,6 +351,7 @@ function TabGroup({
           onSaveEdit={onSaveEdit}
           onCancelEdit={onCancelEdit}
           onDelete={onDelete}
+          onUpdateImage={onUpdateImage}
         />
       )}
     </div>
@@ -217,13 +359,21 @@ function TabGroup({
 }
 
 function CategoryList({
-  categories, editingId, editLabel, setEditLabel, onStartEdit, onSaveEdit, onCancelEdit, onDelete,
+  categories, editingId, editLabel, setEditLabel, onStartEdit, onSaveEdit, onCancelEdit, onDelete, onUpdateImage,
 }: ListProps) {
   return (
     <div className="divide-y divide-border">
       {categories.map((cat) => (
         <div key={cat.id} className="flex items-center gap-3 px-4 py-3 group hover:bg-muted/30">
           <GripVertical className="w-4 h-4 text-muted-foreground/40 cursor-grab shrink-0" />
+
+          {/* Image upload thumbnail */}
+          <CategoryImageCell
+            image={cat.image}
+            categoryId={cat.id}
+            onUpdate={onUpdateImage}
+          />
+
           <div className="flex-1 min-w-0">
             {editingId === cat.id ? (
               <div className="flex items-center gap-2">
