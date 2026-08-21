@@ -7,7 +7,17 @@ import Footer from "../_components/footer.tsx";
 import { MENU_CATEGORIES, TABS } from "./data.ts";
 import type { Dish, TabId } from "./data.ts";
 
+const PLACEHOLDER_DISH = "https://placehold.co/800x600/e8e0d5/5c4a2a?text=Нет+фото";
+const PLACEHOLDER_CATEGORY = "https://placehold.co/1200x400/e8e0d5/5c4a2a?text=Категория";
+
+function getImageSrc(src: string | undefined | null, fallback: string): string {
+  if (!src || src.trim() === "") return fallback;
+  return src;
+}
+
 function DishCard({ dish, index }: { dish: Dish; index: number }) {
+  const [imgSrc, setImgSrc] = useState(() => getImageSrc(dish.image, PLACEHOLDER_DISH));
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -18,8 +28,9 @@ function DishCard({ dish, index }: { dish: Dish; index: number }) {
     >
       <div className="overflow-hidden">
         <img
-          src={dish.image}
+          src={imgSrc}
           alt={dish.name}
+          onError={() => setImgSrc(PLACEHOLDER_DISH)}
           className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
@@ -39,24 +50,40 @@ function DishCard({ dish, index }: { dish: Dish; index: number }) {
           {dish.isSignature && (
             <span className="inline-flex items-center gap-1 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-semibold text-accent">
               <Star className="size-2.5" />
-              {"\u0424\u0438\u0440\u043c\u0435\u043d\u043d\u043e\u0435"}
+              {"Фирменное"}
             </span>
           )}
           {dish.isNew && (
             <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
               <Sparkles className="size-2.5" />
-              {"\u041d\u043e\u0432\u0438\u043d\u043a\u0430"}
+              {"Новинка"}
             </span>
           )}
           {dish.isVeg && (
             <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400">
               <Leaf className="size-2.5" />
-              {"\u0412\u0435\u0433\u0435\u0442\u0430\u0440\u0438\u0430\u043d\u0441\u043a\u043e\u0435"}
+              {"Вегетарианское"}
             </span>
           )}
         </div>
       </div>
     </motion.div>
+  );
+}
+
+function CategoryBanner({ image, label }: { image: string; label: string }) {
+  const [imgSrc, setImgSrc] = useState(() =>
+    getImageSrc(image, `${PLACEHOLDER_CATEGORY}&text=${encodeURIComponent(label)}`)
+  );
+  return (
+    <div className="overflow-hidden rounded-xl">
+      <img
+        src={imgSrc}
+        alt={label}
+        onError={() => setImgSrc(`${PLACEHOLDER_CATEGORY}&text=${encodeURIComponent(label)}`)}
+        className="h-[180px] w-full object-cover sm:h-[240px]"
+      />
+    </div>
   );
 }
 
@@ -123,7 +150,7 @@ export default function MenuPage() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="text-xs font-semibold tracking-[0.3em] text-accent uppercase"
           >
-            {"\u0410\u0443\u0442\u0435\u043d\u0442\u0438\u0447\u043d\u0430\u044f \u0442\u0443\u0440\u0435\u0446\u043a\u0430\u044f \u043a\u0443\u0445\u043d\u044f"}
+            {"Аутентичная турецкая кухня"}
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
@@ -131,7 +158,7 @@ export default function MenuPage() {
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
             className="mt-3 text-balance font-serif text-4xl font-bold text-primary-foreground sm:text-5xl"
           >
-            {"\u041d\u0430\u0448\u0435 \u043c\u0435\u043d\u044e"}
+            {"Наше меню"}
           </motion.h1>
         </div>
       </section>
@@ -176,7 +203,7 @@ export default function MenuPage() {
                     : "border-border/60 bg-background text-foreground/70 hover:bg-secondary hover:text-foreground",
                 )}
               >
-                {"\u0412\u0441\u0435"}
+                {"Все"}
               </button>
               {tabCategories.map((cat) => (
                 <button
@@ -211,7 +238,7 @@ export default function MenuPage() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder={"\u041f\u043e\u0438\u0441\u043a \u043f\u043e \u043c\u0435\u043d\u044e..."}
+              placeholder={"Поиск по меню..."}
               className="w-full rounded-lg border border-border/60 bg-background py-2.5 pl-10 pr-4 text-sm outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent/30"
             />
           </div>
@@ -224,8 +251,8 @@ export default function MenuPage() {
           <div className="mx-auto max-w-[1140px] px-6">
             <p className="mb-6 text-sm text-muted-foreground">
               {searchResults.length > 0
-                ? `${"\u041d\u0430\u0439\u0434\u0435\u043d\u043e"} ${searchResults.length} ${"\u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432 \u0434\u043b\u044f"} \u00ab${search}\u00bb`
-                : `${"\u041d\u0438\u0447\u0435\u0433\u043e \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e \u043f\u043e \u0437\u0430\u043f\u0440\u043e\u0441\u0443"} \u00ab${search}\u00bb`}
+                ? `Найдено ${searchResults.length} результатов для «${search}»`
+                : `Ничего не найдено по запросу «${search}»`}
             </p>
             {searchResults.length > 0 && (
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -262,13 +289,7 @@ export default function MenuPage() {
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   className="mb-8"
                 >
-                  <div className="overflow-hidden rounded-xl">
-                    <img
-                      src={cat.image}
-                      alt={cat.label}
-                      className="h-[180px] w-full object-cover sm:h-[240px]"
-                    />
-                  </div>
+                  <CategoryBanner image={cat.image} label={cat.label} />
                   <div className="mt-5 flex items-end justify-between">
                     <div>
                       <p className="text-xs font-semibold tracking-[0.3em] text-accent uppercase">
@@ -279,7 +300,7 @@ export default function MenuPage() {
                       </h2>
                     </div>
                     <span className="text-xs text-muted-foreground">
-                      {cat.dishes.length} {"\u043f\u043e\u0437\u0438\u0446\u0438\u0439"}
+                      {cat.dishes.length} {"позиций"}
                     </span>
                   </div>
                 </motion.div>
